@@ -1,0 +1,13 @@
+1. http://localhost:3000
+2. http://localhost:3000/wait
+3. http://localhost:3000/admin
+4. http://localhost:3000/index
+5. http://localhost:3000/ambulance
+5. http://localhost:3000/beds
+5. http://localhost:3000/food
+5. http://localhost:3000/helpline
+6. http://localhost:3000/api/amulance/lat+long/testkey   
+6. http://localhost:3000/api/beds/lat+long/testkey   
+6. http://localhost:3000/api/doctor/lat+long/testkey   
+6. http://localhost:3000/api/food/lat+long/testkey
+6. http://localhost:3000/api/helpline/lat+long/testkey

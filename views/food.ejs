@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Food Console</title>
+    <style>
+        body {
+            background: #edf1f5;
+            margin-top: 20px;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid transparent;
+            border-radius: 0;
+        }
+
+        .btn-circle.btn-lg,
+        .btn-group-lg>.btn-circle.btn {
+            width: 50px;
+            height: 50px;
+            padding: 14px 15px;
+            font-size: 18px;
+            line-height: 23px;
+        }
+
+        .text-muted {
+            color: #8898aa !important;
+        }
+
+        [type=button]:not(:disabled),
+        [type=reset]:not(:disabled),
+        [type=submit]:not(:disabled),
+        button:not(:disabled) {
+            cursor: pointer;
+        }
+
+        .btn-circle {
+            border-radius: 100%;
+            width: 40px;
+            height: 40px;
+            padding: 10px;
+        }
+
+        .user-table tbody tr .category-select {
+            max-width: 150px;
+            border-radius: 20px;
+        }
+
+        th,
+        td,
+        table {
+            padding: 15px;
+            border: 2px solid gray;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+   
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-uppercase mb-0 primary">Food Console</h2>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right;">
+                 Add New Entry
+                  </button>
+                  <a href="/"><button type="button" class="btn btn-secondary">
+                    Home
+                   </button></a>
+            </div>
+            <div class="table-responsive">
+                <table class="table no-wrap user-table mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="border-0 text-uppercase font-medium">ID</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Location Address</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Location Position</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Contact No</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Verified</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Availability</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Update/Delete</th>
+                          
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <% if(data.length >0 ) %>
+                        <% data.forEach(element=> { %>
+                            <tr>
+                                <td>
+                             
+                                  
+                                    <span class="text-muted">
+                                        <%=element._id%>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="text-muted">
+                                        <%=element.name %>
+                                    </span>
+                                </td>
+                                <td> <span class="text-muted">
+                                        <%= element.location_a %></span>
+                                </td>
+                                <td> <span class="text-muted">
+                                        <%=element.location_c.coordinates[0] %>, <%=element.location_c.coordinates[1] %>
+                                    </span></td>
+                                <td> <span class="text-muted">
+                                        <%=element.contact %>
+                                    </span></td>
+                                <td><span class="text-muted">
+                                         <%= element.verified %>
+                                    </span> </td>
+                                <td><span class="text-muted">
+                                         <%= element.avl_comment %>
+                                    </span> </td>
+                         
+                                <td>  
+                                    <a href="/food/update/<%=element._id%>"><button type="button"
+                                        class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
+                                            class="fa fa-edit"></i> </button></a> 
+                                 <a href="/food/delete/<%=element._id%>"><button type="button"
+                                        class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
+                                            class="fa fa-close"></i> </button></a></td>
+                            </tr>
+
+                            <%}); %>
+
+                               
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ 
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Enter Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="/food/add" method="POST">
+                    <div class="form-group">
+                
+                      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Food Organization" name="name" required>
+                    </div>
+                    <div class="form-group">
+                  
+                      <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Contact Number" required name="contact">
+                    </div>
+                    <div class="form-group">
+                      
+                      <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Address" aria-required="" name="location_a">
+                    </div>
+                   
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Availability" name="avl_comment" required>
+                    </div>
+                    
+                    
+                     <div class="form-check">
+  <input class="form-check-input text-dark" type="radio" name="verified" id="flexRadioDefault1" value="true">
+  <label class="form-check-label text-dark" for="flexRadioDefault1">
+   Verified
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input text-light" type="radio" name="verified" id="flexRadioDefault2"  value="false" checked>
+  <label class="form-check-label text-dark" for="flexRadioDefault2">
+    Not Verified
+  </label>
+</div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" onclick="()=>{window.location.href='/food'}">Save changes</button>
+                      </div>
+                  </form>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>
